@@ -1,0 +1,229 @@
+# AI Image Platform - Complete Monorepo .gitignore
+
+# ===== Node.js & Package Managers =====
+node_modules/
+apps/*/node_modules/
+packages/*/node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager lockfiles (keep pnpm-lock.yaml)
+package-lock.json
+yarn.lock
+
+# ===== Environment Variables =====
+.env
+.env.*
+!.env.example
+apps/*/.env
+apps/*/.env.*
+!apps/*/.env.example
+
+# ===== Build Outputs (모든 앱 대응) =====
+dist/
+build/
+out/
+apps/*/dist/
+apps/*/build/
+apps/*/out/
+
+# Nuxt.js (client)
+.nuxt/
+.output/
+.nitro/
+apps/client/.nuxt/
+apps/client/.output/
+apps/client/.nitro/
+
+# Next.js (if used)
+.next/
+apps/*/.next/
+
+# Static generation
+static/
+_static/
+
+# ===== Cache & Temporary Files =====
+.cache/
+.temp/
+.tmp/
+*.log
+*.tsbuildinfo
+.turbo/
+apps/*/.cache/
+apps/*/.temp/
+apps/*/.turbo/
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ===== Database & Storage =====
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/
+uploads/
+storage/
+pgdata/
+
+# ===== Testing =====
+coverage/
+.coverage
+.nyc_output
+junit.xml
+.jest/
+apps/*/coverage/
+packages/*/coverage/
+
+# ===== AI Image Platform Specific =====
+
+# Image uploads and processing
+uploads/
+temp-uploads/
+processed-images/
+thumbnails/
+image-cache/
+apps/server/uploads/
+apps/server/storage/
+
+# ComfyUI Workflow files
+workflow-cache/
+temp-workflows/
+*.workflow.backup
+*.workflow.temp
+
+# AI Models (if stored locally)
+models/
+checkpoints/
+*.safetensors
+*.ckpt
+*.pth
+*.bin
+
+# Large test assets
+test-images/
+sample-data/
+mock-assets/
+
+# S3 local cache
+.s3-cache/
+.aws-cache/
+
+# ===== Development Tools =====
+
+# IDE & Editors
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/.ropeproject
+!.vscode/settings.json.example
+.idea/
+*.swp
+*.swo
+*~
+
+# JetBrains
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ===== OS Generated Files =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ===== Cloud & Deployment =====
+.vercel/
+.netlify/
+.railway/
+
+# AWS
+.aws/
+.aws-sam/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+docker-compose.local.yml
+
+# ===== Package Manager Specific =====
+.pnp.*
+.yarn/
+.yarnrc.yml
+.npm/
+
+# ===== TypeScript =====
+*.tsbuildinfo
+.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# ===== Monorepo Tools =====
+.turbo/
+.rush/
+.lerna/
+
+# ===== Development & Debugging =====
+.vscode-test/
+.nyc_output/
+
+# Debug logs
+debug.log
+
+# ===== Miscellaneous =====
+.versionrc
+.release-it.json
+.changeset/
+
+# Local development overrides
+.local/
+.dev/
+localhost-*
+local-*
+
+# Backup files
+*.backup
+*.bak
+*.tmp
+*.orig
+
+# Storybook
+storybook-static/
+apps/*/storybook-static/
+
+# Documentation builds
+docs/build/
+docs/dist/
+
+# ===== Scripts & Tools =====
+# Keep scripts but ignore generated ones
+scripts/generated/
+scripts/temp/
+
+# ===== Health Check & Monitoring =====
+.monitoring/
+health-check/
+
+# ===== Never Ignore (Important!) =====
+!.gitkeep
+!.env.example
+!.env.template
+!.vscode/settings.json.example
+!README.md
+!LICENSE
