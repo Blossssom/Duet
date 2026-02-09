@@ -8,6 +8,12 @@
 
 **Duet** is a local web service that enables AI-powered code generation and review workflow. Gemini generates code, Claude reviews it, and you can watch their thinking process in real-time.
 
+## Project Plans
+
+- **Project plan** : "./docs/PROJECT_PLAN.md"
+- **Server plan** : "./docs/SERVER_PLAN.md"
+- **Client plan** : "./docs/CLIENT_PLAN.md"
+
 ### Core Goals
 
 1. Input a prompt → Gemini generates code → Claude reviews

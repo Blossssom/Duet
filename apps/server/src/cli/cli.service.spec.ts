@@ -6,6 +6,15 @@ import type { StreamChunk } from '@duet/shared';
 describe('CliService', () => {
   let service: CliService;
   let configService: ConfigService;
+  const originalStderrWrite = process.stderr.write;
+
+  beforeAll(() => {
+    process.stderr.write = jest.fn() as any;
+  });
+
+  afterAll(() => {
+    process.stderr.write = originalStderrWrite;
+  });
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
