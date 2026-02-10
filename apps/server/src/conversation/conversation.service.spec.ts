@@ -74,9 +74,9 @@ describe('ConversationService', () => {
     });
 
     it('should throw when conversation does not exist', () => {
-      expect(() =>
-        service.addMessage('nonexistent', 'user', 'test'),
-      ).toThrow('Conversation nonexistent not found');
+      expect(() => service.addMessage('nonexistent', 'user', 'test')).toThrow(
+        'Conversation nonexistent not found',
+      );
     });
   });
 

@@ -249,9 +249,9 @@ parseCodeBlocks("no code"); // []
 
 ### Step 5.3: Health Check Endpoint
 
-- [ ] Create GET `/api/health` endpoint
-- [ ] Check CLI availability
-- [ ] Return status
+- [x] Create GET `/api/health` endpoint
+- [x] Check CLI availability
+- [x] Return status
 
 ### Step 5.4: CLI Availability Check
 
