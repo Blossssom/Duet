@@ -1,24 +1,61 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
+import { TestingModule } from '@nestjs/testing';
 import request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { createTestApp, MockCliService } from './utils/test-app';
 
-describe('AppController (e2e)', () => {
+describe('App (e2e)', () => {
   let app: INestApplication;
+  let module: TestingModule;
+  let mockCliService: MockCliService;
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
+  beforeAll(async () => {
+    ({ app, module, mockCliService } = await createTestApp());
   });
 
-  it('/ (GET)', async () => {
+  afterAll(async () => {
+    await app.close();
+  });
+
+  it('/ (GET) should return 200', async () => {
     await request(app.getHttpServer() as Parameters<typeof request>[0])
       .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .expect(200);
+  });
+
+  it('/api/health (GET) should return health status', async () => {
+    const res = await request(
+      app.getHttpServer() as Parameters<typeof request>[0],
+    )
+      .get('/api/health')
+      .expect(200);
+
+    expect(res.body).toHaveProperty('status');
+    expect(res.body).toHaveProperty('cli');
+    expect(res.body.cli).toHaveProperty('gemini');
+    expect(res.body.cli).toHaveProperty('claude');
+  });
+
+  it('/api/history (GET) should return empty array initially', async () => {
+    const res = await request(
+      app.getHttpServer() as Parameters<typeof request>[0],
+    )
+      .get('/api/history')
+      .expect(200);
+
+    expect(Array.isArray(res.body)).toBe(true);
+  });
+
+  it('/api/generate (POST) should reject empty prompt', async () => {
+    await request(app.getHttpServer() as Parameters<typeof request>[0])
+      .post('/api/generate')
+      .send({ prompt: '' })
+      .expect(400);
+  });
+
+  it('/api/generate (POST) should reject missing prompt', async () => {
+    await request(app.getHttpServer() as Parameters<typeof request>[0])
+      .post('/api/generate')
+      .send({})
+      .expect(400);
   });
 });
