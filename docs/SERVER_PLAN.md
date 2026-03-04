@@ -255,10 +255,10 @@ parseCodeBlocks("no code"); // []
 
 ### Step 5.4: CLI Availability Check
 
-- [ ] Check if gemini CLI exists on startup
-- [ ] Check if claude CLI exists on startup
-- [ ] Log warnings if not found
-- [ ] Provide helpful error messages
+- [x] Check if gemini CLI exists on startup
+- [x] Check if claude CLI exists on startup
+- [x] Log warnings if not found
+- [x] Provide helpful error messages
 
 ---
 

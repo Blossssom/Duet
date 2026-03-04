@@ -34,6 +34,77 @@ describe('HealthService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('onModuleInit', () => {
+    it('should log success when both CLIs are available', () => {
+      mockedExecSync.mockReturnValue(Buffer.from(''));
+      const logSpy = jest.spyOn(service['logger'], 'log');
+
+      service.onModuleInit();
+
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Gemini CLI found'),
+      );
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Claude CLI found'),
+      );
+    });
+
+    it('should warn when gemini CLI is not found', () => {
+      mockedExecSync
+        .mockImplementationOnce(() => {
+          throw new Error('not found');
+        })
+        .mockReturnValueOnce(Buffer.from(''));
+      const warnSpy = jest.spyOn(service['logger'], 'warn');
+
+      service.onModuleInit();
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Gemini CLI "gemini" not found'),
+      );
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('degraded mode'),
+      );
+    });
+
+    it('should warn when claude CLI is not found', () => {
+      mockedExecSync
+        .mockReturnValueOnce(Buffer.from(''))
+        .mockImplementationOnce(() => {
+          throw new Error('not found');
+        });
+      const warnSpy = jest.spyOn(service['logger'], 'warn');
+
+      service.onModuleInit();
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Claude CLI "claude" not found'),
+      );
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('degraded mode'),
+      );
+    });
+
+    it('should warn when both CLIs are not found', () => {
+      mockedExecSync.mockImplementation(() => {
+        throw new Error('not found');
+      });
+      const warnSpy = jest.spyOn(service['logger'], 'warn');
+
+      service.onModuleInit();
+
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Gemini CLI "gemini" not found'),
+      );
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Claude CLI "claude" not found'),
+      );
+      expect(warnSpy).toHaveBeenCalledWith(
+        expect.stringContaining('degraded mode'),
+      );
+    });
+  });
+
   describe('check', () => {
     it('should return ok when both CLIs are available', () => {
       mockedExecSync.mockReturnValue(Buffer.from(''));
